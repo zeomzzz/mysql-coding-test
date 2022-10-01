@@ -1,6 +1,6 @@
 SELECT CART_ID
 FROM CART_PRODUCTS
-WHERE NAME IN ("Milk", "Yogurt")
+WHERE NAME IN ("Milk", "Yogurt") -- Milk, Yogurt 만 있는 NAME 만 남김
 GROUP BY CART_ID
-HAVING COUNT(DISTINCT NAME) = 2
+HAVING COUNT(DISTINCT NAME) = 2 -- Distnct 안하면 Milk나 Yogurt를 여러번 담은 것도 count 되니까 상품명만 count하도록
 ORDER BY CART_ID
