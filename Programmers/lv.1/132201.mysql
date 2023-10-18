@@ -1,0 +1,24 @@
+SELECT PT_NAME
+     , PT_NO
+     , GEND_CD
+     , AGE
+     , IF(TLNO IS NULL, 'NONE', TLNO) TLNO
+FROM PATIENT
+WHERE AGE <= 12
+  AND GEND_CD = 'W'
+ORDER BY AGE DESC
+       , PT_NO
+
+
+-- 2회차 풀이 : 231018
+
+SELECT PT_NAME
+     , PT_NO
+     , GEND_CD
+     , AGE
+     , IF(TLNO, TLNO, 'NONE') AS TLNO
+FROM PATIENT
+WHERE GEND_CD = 'W'
+  AND AGE <= 12
+ORDER BY AGE DESC
+       , PT_NAME 
