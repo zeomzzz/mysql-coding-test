@@ -5,3 +5,16 @@ FROM CAR_RENTAL_COMPANY_CAR C
 WHERE CAR_TYPE = '세단'
     AND MONTH(H.START_DATE) = 10
 ORDER BY C.CAR_ID DESC
+
+-- 240130
+-- 자동차 종류가 '세단'인 자동차들
+-- 10월에 대여를 시작한 기록이 있는 자동차 ID 리스트를 출력
+SELECT DISTINCT(CAR_ID)
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+WHERE MONTH(START_DATE) = 10
+    AND CAR_ID IN (
+                    SELECT CAR_ID
+                    FROM CAR_RENTAL_COMPANY_CAR
+                    WHERE CAR_TYPE = '세단'
+                    )
+ORDER BY CAR_ID DESC
