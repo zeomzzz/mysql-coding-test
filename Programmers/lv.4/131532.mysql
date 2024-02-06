@@ -1,0 +1,26 @@
+select year(O.SALES_DATE) YEAR
+     , month(O.SALES_DATE) MONTH
+     , U.GENDER GENDER
+     , count(distinct O.USER_ID) USERS
+from ONLINE_SALE O
+     left join USER_INFO U on O.USER_ID = U.USER_ID
+where U.GENDER is not null
+group by YEAR
+       , MONTH
+       , GENDER
+order by YEAR, MONTH, GENDER
+
+-- 240206
+-- 년, 월, 성별 별로 상품을 구매한 회원수를 집계하는 SQL문
+SELECT YEAR(SALES_DATE) YEAR
+    , MONTH(SALES_DATE) MONTH
+    , GENDER
+    , COUNT(DISTINCT O.USER_ID) USERS
+FROM ONLINE_SALE O
+    LEFT JOIN USER_INFO U
+    ON O.USER_ID = U.USER_ID
+WHERE GENDER IS NOT NULL
+GROUP BY YEAR(SALES_DATE)
+    , MONTH(SALES_DATE)
+    , GENDER
+ORDER BY YEAR, MONTH, GENDER
