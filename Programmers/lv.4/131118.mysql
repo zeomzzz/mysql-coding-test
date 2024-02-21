@@ -28,3 +28,30 @@ WHERE I.ADDRESS LIKE "서울%"
 GROUP BY REST_ID
 ORDER BY SCORE DESC
     , FAVORITES DESC
+
+
+-- 240221
+-- 서울에 위치한 식당
+-- 식당 ID, 식당 이름, 음식 종류, 즐겨찾기수, 주소, 리뷰 평균 점수
+WITH AVG_REVIEW_SCORE AS (
+    SELECT REST_ID
+        , AVG(REVIEW_SCORE) AVG_SCORE
+    FROM REST_REVIEW
+    GROUP BY REST_ID
+)
+
+SELECT A.REST_ID
+    , I.REST_NAME
+    , I.FOOD_TYPE
+    , I.FAVORITES
+    , I.ADDRESS
+    , ROUND(A.AVG_SCORE, 2) AS SCORE
+FROM AVG_REVIEW_SCORE A
+    INNER JOIN (
+                SELECT *
+                FROM REST_INFO
+                WHERE ADDRESS LIKE "서울%"
+                ) I
+    ON A.REST_ID = I.REST_ID
+ORDER BY SCORE DESC
+    , FAVORITES DESC
